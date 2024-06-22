@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Перевіряємо, чи введено ім'я проекту
+if [ -z "$1" ]; then
+    echo "Будь ласка, введіть ім'я проекту."
+    exit 1
+fi
+
+# Створюємо папки проекту
+PROJECT_NAME=$1
+mkdir -p $PROJECT_NAME/src
+cd $PROJECT_NAME
+
+# Створюємо CMakeLists.txt
+cat <<EOL > CMakeLists.txt
+cmake_minimum_required(VERSION 3.10)
+
+# Назва проекту
+project($PROJECT_NAME)
+
+# Стандарт C++
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Додайте виконуваний файл
+add_executable($PROJECT_NAME src/main.cpp)
+EOL
+
+# Створюємо main.cpp
+cat <<EOL > src/main.cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+EOL
+
+echo "Проект $PROJECT_NAME створено."
+
