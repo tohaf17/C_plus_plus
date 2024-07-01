@@ -104,6 +104,6 @@ int main(){
         Summary(myArray);
     }
 
-    return 0;
+    return 0;}
 
-}
+
